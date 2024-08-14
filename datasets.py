@@ -13,8 +13,9 @@ class Base2DDataset(Dataset, ABC):
         return len(self.data)
 
     def __getitem__(self, idx):
-        
-        return self.data[idx]
+        data = self.data[idx]
+        data = (data - data.mean(dim=0)) / data.std(dim=0)  # Normalize the data
+        return data
 
     @abstractmethod
     def generate_data(self):
